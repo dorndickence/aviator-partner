@@ -4,7 +4,6 @@ import { useEffect } from "react";
 const Logout = () => {
   useEffect(() => {
     Cookies.remove("token");
-    Cookies.remove("currency");
   }, []);
   return (
     <>

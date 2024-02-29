@@ -7,7 +7,7 @@ const GameHistory = () => {
 
   const historyMethod = () => {
     axios
-      .post(`${process.env.REACT_APP_API_URL}game-history`, {
+      .post(`${process.env.REACT_APP_API_URL}players`, {
         token: Cookies.get("token"),
       })
       .then((data) => {
@@ -23,43 +23,48 @@ const GameHistory = () => {
   return (
     <>
       <div className="py-6">
-        <h2 className="text-center py-6">Transaction History</h2>
+        <h2 className="text-center py-6">Players report</h2>
         <div className="overflow-x-auto">
           <table className="table text-center">
             {/* head */}
             <thead>
               <tr>
-                <th>Crash</th>
-                <th>Odds</th>
-                <th>Bet Amount</th>
-                <th>Win</th>
+                <th>Name</th>
+                <th>User Total PNL</th>
+                <th>Commission</th>
+                <th>Registration Date</th>
               </tr>
             </thead>
             <tbody>
               {/* row 1 */}
               {history.map((his, index) => (
-                <tr
-                  className={
-                    his.win.$numberDecimal > 0
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }
-                  key={index}
-                >
-                  <td>x{his.crash.$numberDecimal}</td>
-                  <td>x{his.odds.$numberDecimal}</td>
-                  <td>{his.amount.$numberDecimal}</td>
-                  <td>{his.win.$numberDecimal}</td>
+                <tr key={index}>
+                  <td>{his.name}</td>
+                  <td
+                    className={his.pnl > 0 ? "text-green-500" : "text-red-500"}
+                  >
+                    {his.pnl}
+                  </td>
+                  <td
+                    className={
+                      his.commission > 0 ? "text-green-500" : "text-red-500"
+                    }
+                  >
+                    {his.commission}
+                  </td>
+                  <td>
+                    <div className="max-w-64 mx-auto">{Date(his.date)}</div>
+                  </td>
                 </tr>
               ))}
             </tbody>
             {/* foot */}
             <tfoot>
               <tr>
-                <th>Crash</th>
-                <th>Odds</th>
-                <th>Bet Amount</th>
-                <th>Win</th>
+                <th>Name</th>
+                <th>User Total PNL</th>
+                <th>Commission</th>
+                <th>Registration Date</th>
               </tr>
             </tfoot>
           </table>

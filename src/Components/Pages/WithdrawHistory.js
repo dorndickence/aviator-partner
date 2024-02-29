@@ -69,7 +69,7 @@ const WithdrawHistory = () => {
                     {his.account.slice(his.account.length - 5)}
                   </td>
                   <td>{his.amount.$numberDecimal}</td>
-                  <td>{his.payout_currency.toUpperCase()}</td>
+                  <td>{his.payoutCurrency.toUpperCase()}</td>
                   <td>{getTimeMethod(his.updatedAt)}</td>
                   <td
                     dangerouslySetInnerHTML={{

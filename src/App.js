@@ -6,12 +6,14 @@ import Header from "./Components/Pages/Header";
 import Footer from "./Components/Pages/Footer";
 import Login from "./Components/Pages/Login";
 import Register from "./Components/Pages/Register";
+import Account from "./Components/Pages/Account";
+import Players from "./Components/Pages/Players";
+import Contact from "./Components/Pages/Contact";
 import Cookies from "js-cookie";
-// import Deposit from "./Components/Pages/Deposit";
-// import Withdraw from "./Components/Pages/Withdraw";
-// import GameHistory from "./Components/Pages/GameHistory";
-// import Logout from "./Components/Pages/Logout";
-// import Logout2 from "./Components/Pages/Logout2";
+import Withdraw from "./Components/Pages/Withdraw";
+import Logout from "./Components/Pages/Logout";
+import Logout2 from "./Components/Pages/Logout2";
+import Password from "./Components/Pages/Password";
 
 function App() {
   const currentPath = window.location.pathname;
@@ -23,20 +25,22 @@ function App() {
         <Route index element={<Home />} />
         {Cookies.get("token") ? (
           <>
-            {/* <Route path="logout" element={<Logout />} />
-            <Route path="deposit" element={<Deposit />} />
+            <Route path="logout" element={<Logout />} />
             <Route path="withdraw" element={<Withdraw />} />
-            <Route path="game-history" element={<GameHistory />} /> */}
+            <Route path="account" element={<Account />} />
+            <Route path="players" element={<Players />} />
           </>
         ) : (
           <>
-            {/* <Route path="logout" element={<Logout2 />} /> */}
+            <Route path="logout" element={<Logout2 />} />
             <Route path="login" element={<Login />} />
+            <Route path="password-recovery" element={<Password />} />
             <Route path="register" element={<Register />} />
           </>
         )}
 
         {/* <Route path="*" element={<NoPage />} /> */}
+        <Route path="contact" element={<Contact />} />
       </Routes>
       {currentPath !== "/logout" && <Footer />}
     </BrowserRouter>
