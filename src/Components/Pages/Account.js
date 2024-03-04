@@ -3,9 +3,12 @@ import Cookies from "js-cookie";
 import axios from "axios";
 const Account = () => {
   const [balances, setBalances] = useState([]);
+  const [totalUsdBalance, setTotalUsdBalance] = useState([]);
+  const [withdrawable, setWithdrawable] = useState([]);
   const [withdrawn, setWtihdrawn] = useState(0);
   const [partners, setPartners] = useState(0);
   const [partnerId, setPartnerId] = useState(0);
+
   const [promo, setPromo] = useState(0);
   const getBalance = () => {
     axios
@@ -18,6 +21,8 @@ const Account = () => {
         setWtihdrawn(data.data.withdrawn);
         setPartnerId(data.data.partnerId);
         setPromo(data.data.promo);
+        setTotalUsdBalance(data.data.totalUsd);
+        setWithdrawable(data.data.withdrawable);
       })
       .catch((error) => {
         console.log(error);
@@ -57,7 +62,7 @@ const Account = () => {
             ) : (
               <>
                 <div
-                  className="w-64 right-0 p-3 top-10 bg-primary text-black rounded"
+                  className="w-64 right-0 p-3 top-10 bg-gradient-to-r from-indigo-300 text-black rounded"
                   id="btnm"
                 >
                   {Object.entries(balances).map(([currency, amount]) => (
@@ -66,13 +71,65 @@ const Account = () => {
                       key={currency}
                     >
                       <span> {currency.toUpperCase()}: </span>
-                      <span className={currency}>
+                      <span
+                        className={
+                          amount?.$numberDecimal
+                            ? amount?.$numberDecimal > 0
+                              ? "text-green-500"
+                              : "text-red-500"
+                            : amount > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }
+                      >
                         {amount?.$numberDecimal
                           ? parseFloat(amount.$numberDecimal).toFixed(8)
                           : parseFloat(amount).toFixed(8)}
                       </span>
                     </div>
                   ))}
+                </div>
+              </>
+            )}
+          </div>
+          <div className="space-y-6 mx-auto">
+            <h4>Available to Withdraw</h4>
+            {withdrawable.length === 0 ? (
+              <div className="badge badge-primary">
+                No available withdraw balance
+              </div>
+            ) : (
+              <>
+                <div
+                  className="w-64 right-0 p-3 top-10 bg-gradient-to-r from-indigo-300 text-black rounded"
+                  id="btnm"
+                >
+                  {withdrawable.map((coin, index) => (
+                    <div
+                      className="p-3 flex gap-2 justify-between "
+                      key={index}
+                    >
+                      <span> {coin.name.toUpperCase()}: </span>
+                      <span
+                        className={
+                          coin.value > 0 ? "text-green-500" : "text-red-500"
+                        }
+                      >
+                        {parseFloat(coin.value).toFixed(8)}
+                      </span>
+                    </div>
+                  ))}
+
+                  <div className="p-3 flex gap-2 justify-between ">
+                    <span> Total In USD (PNL): </span>
+                    <span
+                      className={
+                        totalUsdBalance > 0 ? "text-green-500" : "text-red-500"
+                      }
+                    >
+                      {totalUsdBalance.toFixed(2)}
+                    </span>
+                  </div>
                 </div>
               </>
             )}
