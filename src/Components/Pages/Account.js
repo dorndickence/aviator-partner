@@ -4,7 +4,6 @@ import axios from "axios";
 const Account = () => {
   const [balances, setBalances] = useState([]);
   const [totalUsdBalance, setTotalUsdBalance] = useState([]);
-  const [withdrawable, setWithdrawable] = useState([]);
   const [withdrawn, setWtihdrawn] = useState(0);
   const [partners, setPartners] = useState(0);
   const [partnerId, setPartnerId] = useState(0);
@@ -22,7 +21,6 @@ const Account = () => {
         setPartnerId(data.data.partnerId);
         setPromo(data.data.promo);
         setTotalUsdBalance(data.data.totalUsd);
-        setWithdrawable(data.data.withdrawable);
       })
       .catch((error) => {
         console.log(error);
@@ -54,7 +52,7 @@ const Account = () => {
   return (
     <>
       <div className="pt-12">
-        <div className="flex justify-center flex-col md:flex-row">
+        <div className="flex gap-6 justify-center flex-col md:flex-row">
           <div className="space-y-6 mx-auto">
             <h4>My Commisssion</h4>
             {balances.length === 0 ? (
@@ -88,38 +86,6 @@ const Account = () => {
                       </span>
                     </div>
                   ))}
-                </div>
-              </>
-            )}
-          </div>
-          <div className="space-y-6 mx-auto">
-            <h4>Available to Withdraw</h4>
-            {withdrawable.length === 0 ? (
-              <div className="badge badge-primary">
-                No available withdraw balance
-              </div>
-            ) : (
-              <>
-                <div
-                  className="w-64 right-0 p-3 top-10 bg-gradient-to-r from-indigo-300 text-black rounded"
-                  id="btnm"
-                >
-                  {withdrawable.map((coin, index) => (
-                    <div
-                      className="p-3 flex gap-2 justify-between "
-                      key={index}
-                    >
-                      <span> {coin.name.toUpperCase()}: </span>
-                      <span
-                        className={
-                          coin.value > 0 ? "text-green-500" : "text-red-500"
-                        }
-                      >
-                        {parseFloat(coin.value).toFixed(8)}
-                      </span>
-                    </div>
-                  ))}
-
                   <div className="p-3 flex gap-2 justify-between ">
                     <span> Total In USD (PNL): </span>
                     <span
@@ -134,6 +100,7 @@ const Account = () => {
               </>
             )}
           </div>
+
           <div className="stats shadow mx-auto">
             <div className="stat place-items-center">
               <div className="stat-title">Players</div>
