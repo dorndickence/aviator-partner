@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import usdttrc20 from "../../images/usdttrc20.svg";
+import trx from "../../images/trx.svg";
+import dai from "../../images/dai.svg";
+import sol from "../../images/sol.svg";
 const Account = () => {
   const [balances, setBalances] = useState([]);
   const [totalUsdBalance, setTotalUsdBalance] = useState([]);
@@ -9,6 +13,14 @@ const Account = () => {
   const [partnerId, setPartnerId] = useState(0);
 
   const [promo, setPromo] = useState(0);
+
+  const currencyImage = {
+    usdttrc20: usdttrc20,
+    sol: sol,
+    dai: dai,
+    trx: trx,
+  };
+
   const getBalance = () => {
     axios
       .post(`${process.env.REACT_APP_API_URL}balance`, {
@@ -60,7 +72,7 @@ const Account = () => {
             ) : (
               <>
                 <div
-                  className="w-64 right-0 p-3 top-10 bg-gradient-to-r from-indigo-300 text-black rounded"
+                  className="min-w-64 right-0 p-3 top-10 bg-gradient-to-r from-indigo-300 text-black rounded"
                   id="btnm"
                 >
                   {Object.entries(balances).map(([currency, amount]) => (
@@ -69,21 +81,24 @@ const Account = () => {
                       key={currency}
                     >
                       <span> {currency.toUpperCase()}: </span>
-                      <span
-                        className={
-                          amount?.$numberDecimal
-                            ? amount?.$numberDecimal > 0
+                      <div className="flex gap-1 items-center">
+                        <span
+                          className={
+                            amount?.$numberDecimal
+                              ? amount?.$numberDecimal > 0
+                                ? "text-green-500"
+                                : "text-red-500"
+                              : amount > 0
                               ? "text-green-500"
                               : "text-red-500"
-                            : amount > 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }
-                      >
-                        {amount?.$numberDecimal
-                          ? parseFloat(amount.$numberDecimal).toFixed(8)
-                          : parseFloat(amount).toFixed(8)}
-                      </span>
+                          }
+                        >
+                          {amount?.$numberDecimal
+                            ? parseFloat(amount.$numberDecimal).toFixed(8)
+                            : parseFloat(amount).toFixed(8)}
+                        </span>
+                        <img class="w-4 h-4" src={currencyImage[currency]} />
+                      </div>
                     </div>
                   ))}
                   <div className="p-3 flex gap-2 justify-between ">
