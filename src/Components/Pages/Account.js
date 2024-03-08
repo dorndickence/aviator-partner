@@ -142,7 +142,7 @@ const Account = () => {
                     id="address"
                     className="overflow-ellipsis overflow-hidden  mr-2 text-xs sm:text-base"
                   >
-                    Link: https://cryptocrash.win/play/{partnerId}{" "}
+                    Link: https://www.crashfly.com/play/{partnerId}{" "}
                   </p>
                   <p>
                     <svg

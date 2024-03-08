@@ -8,7 +8,7 @@ const Footer = () => {
           </a>
         </nav>
         <aside>
-          <p>Copyright © 2024 - All right reserved by CryptoCrash.win</p>
+          <p>Copyright © 2024 - All right reserved by CrashFly.com</p>
         </aside>
       </footer>
     </>
