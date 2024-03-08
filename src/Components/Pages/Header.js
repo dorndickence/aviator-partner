@@ -61,7 +61,7 @@ const Header = () => {
           )}
 
           <a href="./" className="btn btn-ghost text-xl">
-            CC Partner
+            CF Partner
           </a>
         </div>
 
