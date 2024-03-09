@@ -106,14 +106,14 @@ const GameHistory = () => {
                         his.pnl > 0 ? "text-green-500" : "text-red-500"
                       }
                     >
-                      {his.pnl}
+                      {parseFloat(his.pnl).toFixed(2)} USD
                     </td>
                     <td
                       className={
                         his.commission > 0 ? "text-green-500" : "text-red-500"
                       }
                     >
-                      {his.commission}
+                      {parseFloat(his.commission).toFixed(2)} USD
                     </td>
                     <td>
                       <div className="max-w-64 mx-auto">{Date(his.date)}</div>
